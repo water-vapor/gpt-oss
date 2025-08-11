@@ -11,6 +11,11 @@
 
 <br>
 
+---
+This is a fork of the official `gpt-oss` repo with metal backend support for chat script, and a local stateful python REPL-like tool (which the models are trained on). Please use `chat_metal.py` for both features.
+
+---
+
 Welcome to the gpt-oss series, [OpenAI's open-weight models](https://openai.com/open-models/) designed for powerful reasoning, agentic tasks, and versatile developer use cases.
 
 We're releasing two flavors of these open models:
