@@ -121,4 +121,6 @@ When you send a message containing python code to python, it will be executed in
         script = message.content[0].text
         channel = message.channel
         output = call_python_script(script)
-        yield self._make_response(output, channel=channel)
+        # Fix: _make_response doesn't accept channel, use make_response instead
+        content = TextContent(text=output)
+        yield self.make_response(content=content, channel=channel)
