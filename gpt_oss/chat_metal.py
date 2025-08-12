@@ -81,7 +81,7 @@ class MetalTokenGenerator:
         self.tokenizer = self.model.tokenizer
         self.context_length = context
         self.context = None
-        
+
     def generate(self,
                  prompt_tokens: list[int],
                  stop_tokens: list[int] | None = None,
@@ -115,15 +115,7 @@ class MetalTokenGenerator:
         # Generate tokens
         num_generated = 0
         while max_tokens == 0 or num_generated < max_tokens:
-            # Sample next token
-            # Metal backend uses seed instead of direct temperature control
-            # We approximate temperature behavior through seed variation
-            if temperature == 0.0:
-                # Greedy sampling
-                token = self.context.sample(temperature=0.0, seed=0)
-            else:
-                # Sample with temperature
-                token = self.context.sample(temperature=temperature, seed=0)
+            token = self.context.sample(temperature=temperature, seed=0)
             
             # Append to context for next prediction
             self.context.append(token)
@@ -369,7 +361,7 @@ def main(args):
         field_created = False
         current_output_text = ""
         output_text_delta_buffer = ""
-        for predicted_token in generator.generate(tokens, encoding.stop_tokens_for_assistant_actions()):
+        for predicted_token in generator.generate(tokens, encoding.stop_tokens_for_assistant_actions(), temperature=args.temperature):
             parser.process(predicted_token)
             if args.raw:
                 print(encoding.decode([predicted_token]), end="", flush=True)
@@ -483,6 +475,12 @@ if __name__ == "__main__":
         default="metal",
         choices=["metal", "triton", "torch", "vllm"],
         help="Inference backend (default: metal for this script)",
+    )
+    parser.add_argument(
+        "--temperature",
+        type=float,
+        default=1.0,
+        help="Temperature",
     )
     args = parser.parse_args()
 
