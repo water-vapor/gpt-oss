@@ -15,10 +15,11 @@
 This is a fork of the official `gpt-oss` repo with metal backend support for chat script, and a local stateful python REPL-like tool (which the models are trained on). Please use `chat_metal.py` for both features.
 
 ## Setup instructions
-  1. Create a new conda environment, and run `GPTOSS_BUILD_METAL=1 pip install -e ".[metal]"` inside this dir
-  2. Download the metal weights from official weights hf repo, make sure you locate the `model.bin` after download
-  3. Prepare your EXA api key, and `export EXA_API_KEY=XXXXXXX`
-  4. Use the chat client with both tools `python -m gpt_oss.chat_metal gpt-oss-120b/metal/metal/model.bin --reasoning-effort medium -p -b`
+  1. Create a new conda environment with python 3.12, and run `GPTOSS_BUILD_METAL=1 pip install -e ".[metal]"` inside this dir
+  2. If step 1 fails with `metal` not found, make sure you have Xcode installed, and `xcode-select` pointing to `/Applications/Xcode.app/Contents/Developer`
+  3. Download the metal weights from official weights hf repo, make sure you locate the `model.bin` after download
+  4. Prepare your EXA api key, and `export EXA_API_KEY=XXXXXXX`
+  5. Use the chat client with both tools `python -m gpt_oss.chat_metal gpt-oss-120b/metal/metal/model.bin --reasoning-effort medium -p -b`
 
 ---
 
